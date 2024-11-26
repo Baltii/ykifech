@@ -1,20 +1,32 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import {
+  DarkTheme,
+  DefaultTheme,
+  ThemeProvider,
+} from "@react-navigation/native";
+import { useFonts } from "expo-font";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { useEffect } from "react";
+import "react-native-reanimated";
+import "../global.css";
 
-import { useColorScheme } from '@/hooks/useColorScheme';
+import { useColorScheme } from "@/hooks/useColorScheme";
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
 
-export default function RootLayout() {
+function RootLayout() {
   const colorScheme = useColorScheme();
   const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
+    "Outfit-ExtraLight": require("@/assets/fonts/Outfit-ExtraLight.ttf"),
+    "Outfit-Light": require("@/assets/fonts/Outfit-Light.ttf"),
+    "Outfit-Thin": require("@/assets/fonts/Outfit-Thin.ttf"),
+    "Outfit-Regular": require("@/assets/fonts/Outfit-Regular.ttf"),
+    "Outfit-Medium": require("@/assets/fonts/Outfit-Medium.ttf"),
+    "Outfit-Semibold": require("@/assets/fonts/Outfit-SemiBold.ttf"),
+    "Outfit-Bold": require("@/assets/fonts/Outfit-Bold.ttf"),
+    "Outfit-ExtraBold": require("@/assets/fonts/Outfit-ExtraBold.ttf"),
+    "Outfit-Black": require("@/assets/fonts/Outfit-Black.ttf"),
   });
 
   useEffect(() => {
@@ -28,12 +40,15 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
       <Stack>
+        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+        <Stack.Screen name="+not-found" options={{ headerShown: false }} />
       </Stack>
-      <StatusBar style="auto" />
     </ThemeProvider>
   );
 }
+
+export default RootLayout;
