@@ -2,6 +2,8 @@ import { View, Text, Image, TouchableOpacity } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { router } from "expo-router";
+import { FontAwesome } from "@expo/vector-icons";
+import { CaretLeft } from "phosphor-react-native";
 
 interface ProfileOptionProps {
   title: string;
@@ -37,8 +39,18 @@ const Profile = () => {
       <View className="flex-1">
         {/* Header */}
         <View className="flex-row justify-between p-4">
-          <TouchableOpacity>
-            <Text className="text-blue-400 text-2xl">‹</Text>
+          <TouchableOpacity
+            onPress={() => router.back()}
+            style={{
+              width: 40,
+              height: 40,
+              borderRadius: 20,
+              backgroundColor: "#222222",
+              justifyContent: "center",
+              alignItems: "center",
+              marginRight: 12,
+            }}>
+            <CaretLeft size={24} color="white" />
           </TouchableOpacity>
           <TouchableOpacity>
             <Text className="text-blue-400 text-2xl">⋯</Text>
@@ -65,17 +77,17 @@ const Profile = () => {
           <View className="flex-row gap-4 mt-4">
             <TouchableOpacity>
               <View className="w-10 h-10 rounded-full bg-gray-800 items-center justify-center">
-                <Text>fb</Text>
+                <FontAwesome name="facebook" size={20} color="#1877F2" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View className="w-10 h-10 rounded-full bg-gray-800 items-center justify-center">
-                <Text>ig</Text>
+                <FontAwesome name="instagram" size={20} color="#E4405F" />
               </View>
             </TouchableOpacity>
             <TouchableOpacity>
               <View className="w-10 h-10 rounded-full bg-gray-800 items-center justify-center">
-                <Text>wa</Text>
+                <FontAwesome name="whatsapp" size={20} color="#25D366" />
               </View>
             </TouchableOpacity>
           </View>

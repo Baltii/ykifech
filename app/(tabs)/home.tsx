@@ -14,6 +14,7 @@ import { CategoryItem } from "@/components/CategoryItem";
 import PlaceCard from "@/components/PlaceCard";
 
 interface PlaceCardProps {
+  _id: string;
   image: number;
   title: string;
   location: string;
@@ -107,12 +108,14 @@ const PlaceSection = ({
 const Home = () => {
   const places = [
     {
+      _id: "1",
       image: require("@/assets/images/welcome-bg.jpg"),
       title: "Billionaire",
       location: "Gammarth",
       type: "Restaurant",
     },
     {
+      _id: "2",
       image: require("@/assets/images/welcome-bg.jpg"),
       title: "Utopia",
       location: "Gammarth",

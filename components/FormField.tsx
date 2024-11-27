@@ -13,11 +13,13 @@ import {
 interface FormFieldProps {
   title: string;
   value: string;
-  placeholder?: string;
+  placeholder: string;
   handleChangeText: (text: string) => void;
+  multiline?: boolean;
+  numberOfLines?: number;
+  keyboardType?: "default" | "phone-pad";
   otherStyles?: ViewStyle;
   secureTextEntry?: boolean;
-  keyboardType?: KeyboardTypeOptions;
   autoCapitalize?: "none" | "sentences" | "words" | "characters";
 }
 
@@ -26,9 +28,11 @@ const FormField: React.FC<FormFieldProps> = ({
   value,
   placeholder,
   handleChangeText,
+  multiline,
+  numberOfLines,
+  keyboardType,
   otherStyles,
   secureTextEntry = false,
-  keyboardType,
   autoCapitalize,
 }: FormFieldProps) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -45,7 +49,10 @@ const FormField: React.FC<FormFieldProps> = ({
   };
 
   return (
-    <View style={[styles.container, otherStyles]}>
+    <TouchableOpacity
+      activeOpacity={1}
+      onPress={() => inputRef.current?.focus()}
+      style={[styles.container, otherStyles]}>
       <View
         style={[
           styles.inputContainer,
@@ -53,7 +60,14 @@ const FormField: React.FC<FormFieldProps> = ({
         ]}>
         <TextInput
           ref={inputRef}
-          style={styles.input}
+          style={[
+            styles.input,
+            multiline && {
+              height: numberOfLines ? numberOfLines * 20 : 100,
+              textAlignVertical: "top",
+              paddingTop: 12,
+            },
+          ]}
           value={value}
           placeholder={placeholder}
           placeholderTextColor="#8D99AE"
@@ -64,8 +78,8 @@ const FormField: React.FC<FormFieldProps> = ({
           keyboardType={keyboardType}
           autoCapitalize={autoCapitalize}
           autoCorrect={false}
-          blurOnSubmit={false}
-          caretHidden={false}
+          editable={true}
+          pointerEvents="auto"
         />
 
         {isPassword && (
@@ -84,17 +98,18 @@ const FormField: React.FC<FormFieldProps> = ({
           </TouchableOpacity>
         )}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     marginBottom: 16,
+    width: "100%",
   },
   inputContainer: {
     width: "100%",
-    height: 50,
+    minHeight: 50,
     paddingHorizontal: 16,
     backgroundColor: "#0E1821",
     borderRadius: 8,
@@ -102,6 +117,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderWidth: 1,
     borderColor: "transparent",
+    zIndex: 1,
   },
   inputContainerFocused: {
     borderColor: "#3b82f6",
@@ -119,6 +135,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Outfit-Regular",
     fontSize: 16,
+    padding: 0,
   },
   iconButton: {
     padding: 8,

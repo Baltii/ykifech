@@ -2,19 +2,25 @@ import React from "react";
 import { View, Text, Image, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { ForkKnife } from "phosphor-react-native";
+import { router } from "expo-router";
 
 interface PlaceCardProps {
   image: number;
   title: string;
   location: string;
   type: string;
+  _id: string;
 }
 
-const PlaceCard = ({ image, title, location, type }: PlaceCardProps) => {
+const PlaceCard = ({ image, title, location, type, _id }: PlaceCardProps) => {
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   return (
-    <TouchableOpacity className="mr-6 w-48">
+    <TouchableOpacity
+      className="mr-6 w-48"
+      onPress={() =>
+        router.push({ pathname: "/place/[id]", params: { id: _id } })
+      }>
       <View className="relative">
         <Image
           source={image}
